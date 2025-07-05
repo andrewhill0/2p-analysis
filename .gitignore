@@ -1,0 +1,5 @@
+/SessionTools.egg-info
+/SessionTools/__pycache__
+/SessionTools/two_photon/__pycache__
+/SessionTools/two_photon/preprocessing_tools/__pycache__
+.DS_Store
