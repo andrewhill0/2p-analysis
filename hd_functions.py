@@ -1,4 +1,6 @@
 import numpy as np
+from scipy.signal import butter, filtfilt
+from scipy.interpolate import interp1d
 
 def merge_gloms(F_array_in, roi_mask, num_merged_rois):
     F_array_out = np.zeros((len(F_array_in), num_merged_rois))
@@ -59,3 +61,19 @@ def PVA_calc(F_array_in):
             PVA_str[t] = np.sqrt((x_sum**2) + (y_sum**2))
 
     return PVA_rad, PVA_str
+
+def low_pass_filter(signal_in, cutoff, sample_rate):
+    w = cutoff / (sample_rate/2)
+    [b, a] = butter(1, w, 'lowpass')
+    signal_out = filtfilt(b, a, signal_in, axis = 0, padtype = 'odd', padlen = 3*(max(len(b), len(a))-1))
+
+    return signal_out
+
+def downsample_to_vols(signal_in, num_cycles):
+    # Generate the interp1d function:
+    f = interp1d(np.arange(len(signal_in)), signal_in, axis = 0, fill_value = 'extrapolate')
+    new_range = np.linspace(0, len(signal_in), num_cycles)
+    interp_out = f(new_range)
+
+    return interp_out
+
