@@ -4,3 +4,5 @@
 /SessionTools/two_photon/preprocessing_tools/__pycache__
 .DS_Store
 /__pycache__
+push_labels.zsh
+get_nap_stack.zsh
