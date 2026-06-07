@@ -6,3 +6,4 @@
 /__pycache__
 push_labels.zsh
 get_nap_stack.zsh
+/.vscode
